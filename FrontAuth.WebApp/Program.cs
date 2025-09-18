@@ -1,7 +1,26 @@
+using FrontAuth.WebApp.Services;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Defincion de la url base de la Api
+builder.Services.AddHttpClient<ApiService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7273/api/");
+});
+
+builder.Services.AddScoped<AuthService>();
+
+// Configutracion de la autenticacion por cookies
+builder.Services.AddAuthentication("AuthCookie")
+    .AddCookie("AuthCookie", Options =>
+    {
+        Options.LoginPath = "/Auth/Login";
+        Options.ExpireTimeSpan = TimeSpan.FromMinutes(60); //Duracion de la cookie
+    });
 
 var app = builder.Build();
 
@@ -17,7 +36,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

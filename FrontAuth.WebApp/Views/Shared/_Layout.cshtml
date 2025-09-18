@@ -27,7 +27,21 @@
                         </li>
                     </ul>
                 </div>
+                <!-- Mostrar usuario logueado -->
+                @await Component.InvokeAsync("UserInfo")
+
+               
+                <!-- Boton de cerrar sesion -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form asp-controller="Auth" asp-action="Logout" method="post" class="d-flex">
+                     <button type="submit" class="btn btn-outline-danger btn-sm">
+                       Cerrar sesion
+                     </button>
+                   </form>
+                }
             </div>
+
         </nav>
     </header>
     <div class="container">
