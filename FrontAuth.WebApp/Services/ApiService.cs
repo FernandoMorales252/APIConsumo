@@ -44,7 +44,7 @@ namespace FrontAuth.WebApp.Services
         }
 
         //Post generico
-        public async Task<TResponse> PostAsync<TRequest , TResponse>(string endpoint, int Id, TRequest data,  string token = null)
+        public async Task<TResponse> PostAsync<TRequest , TResponse>(string endpoint, TRequest data,  string token = null)
         {
             AddAuthorizationHeader(token);
             var content = new StringContent(JsonSerializer.Serialize(data, _jsonOptions), Encoding.UTF8, "application/json");
