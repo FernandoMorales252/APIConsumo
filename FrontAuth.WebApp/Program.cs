@@ -22,6 +22,8 @@ builder.Services.AddAuthentication("AuthCookie")
         Options.ExpireTimeSpan = TimeSpan.FromMinutes(60); //Duracion de la cookie
     });
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
